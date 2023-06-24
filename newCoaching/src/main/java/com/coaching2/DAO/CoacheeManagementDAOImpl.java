@@ -5,6 +5,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.coaching2.model.Coachee;
+import com.coaching2.rowMapper.CoacheeRowMapper;
 
 
 @Repository
@@ -29,6 +30,17 @@ public class CoacheeManagementDAOImpl implements CoacheeManagementDAO {
 	public Coachee getCoacheeById(int id) {
 		
 		return null;
+	}
+	
+	@Override
+	public boolean ifEmailIsPresent(String email) {
+		
+
+	     String sql = "SELECT COUNT(*) FROM COACHEES WHERE email = ?";
+       int count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+       return count > 0;
+		
+		
 	}
 
 }

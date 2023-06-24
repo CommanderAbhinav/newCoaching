@@ -28,7 +28,11 @@ public class UserController {
 	@PostMapping("/coacheeSignUp")
 	public ResponseEntity<?> signUpInfo(@RequestBody Coachee coacheeData ) {
 		
-		//Writing check of the email already present is left.
+		boolean UserPresent=coacheeManagementDAO.ifEmailIsPresent(coacheeData.getEmail());
+		if(UserPresent !=false) {
+			System.out.println("Already in Use");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 		coacheeManagementDAO.saveCoachee(coacheeData);
 		System.out.println(coacheeData.getName());
 		return new ResponseEntity<>(HttpStatus.OK);
@@ -37,7 +41,12 @@ public class UserController {
 	@PostMapping("/coachSignUp")
 	public ResponseEntity<?> signUpInfocoach(@RequestBody Coach coachData ) {
 		
-		//Writing check of the email already present is left.
+		boolean UserPresent=coachManagementDAO.ifEmailIsPresent(coachData.getEmail());
+		if(UserPresent !=false) {
+			System.out.println("Present Already");
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+		
 		coachManagementDAO.saveCoach(coachData);
 		System.out.println(coachData.getName());
 		return new ResponseEntity<>(HttpStatus.OK);

@@ -6,6 +6,8 @@ import org.springframework.stereotype.Repository;
 
 import com.coaching2.model.Coach;
 
+import com.coaching2.rowMapper.CoachRowMapper;
+
 @Repository
 public class CoachManagementDAOImpl implements CoachManagementDAO {
 	
@@ -28,6 +30,14 @@ public class CoachManagementDAOImpl implements CoachManagementDAO {
 	public Coach getCoachById(int id) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean ifEmailIsPresent(String email) {
+		
+		     String sql = "SELECT COUNT(*) FROM COACHES WHERE email = ?";
+	        int count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+	        return count > 0;
 	}
 
 }
