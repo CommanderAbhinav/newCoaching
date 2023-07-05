@@ -6,7 +6,7 @@ public class AppInitialiser extends AbstractAnnotationConfigDispatcherServletIni
 
 	@Override
 	protected Class<?>[] getRootConfigClasses() {
-		// TODO Auto-generated method stub
+		Class[] configFiles= {MailConfig.class};
 		return null;
 	}
 

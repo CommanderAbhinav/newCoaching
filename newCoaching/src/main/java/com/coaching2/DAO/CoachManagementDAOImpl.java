@@ -10,34 +10,64 @@ import com.coaching2.rowMapper.CoachRowMapper;
 
 @Repository
 public class CoachManagementDAOImpl implements CoachManagementDAO {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 
 	@Override
 	public void saveCoach(Coach coachData) {
-         Object[] sqlParameters= {coachData.getName(),coachData.getEmail(),coachData.getPassword()};
-		 
-		 String sql="Insert into Coaches(name,email,password) values(?,?,?)";
-		 
-		 jdbcTemplate.update(sql,sqlParameters);
-		 
-		 System.out.println("1 coach record saved");
+		Object[] sqlParameters = { coachData.getName(), coachData.getEmail(), coachData.getPassword() };
+
+		String sql = "Insert into Coaches(name,email,password) values(?,?,?)";
+
+		jdbcTemplate.update(sql, sqlParameters);
+
+		System.out.println("1 coach record saved");
 
 	}
 
 	@Override
 	public Coach getCoachById(int id) {
-		// TODO Auto-generated method stub
-		return null;
+		 String sql="SELECT * FROM coaches WHERE id = ?";
+		 Coach coach=jdbcTemplate.queryForObject(sql, new Object[]{id}, new CoachRowMapper());
+		return coach;
 	}
 
 	@Override
 	public boolean ifEmailIsPresent(String email) {
+
+		String sql = "SELECT COUNT(*) FROM COACHES WHERE email = ?";
+		int count = jdbcTemplate.queryForObject(sql, Integer.class, email);
+		return count > 0;
+	}
+
+	@Override
+	public void updateCoach(Coach coachData) {
+		String sql = "Update coachees SET code= ? WHERE email=?";
+
+		jdbcTemplate.update(sql, coachData.getCode(), coachData.getEmail());
 		
-		     String sql = "SELECT COUNT(*) FROM COACHES WHERE email = ?";
-	        int count = jdbcTemplate.queryForObject(sql, Integer.class, email);
-	        return count > 0;
+	}
+
+	@Override
+	public String getCodeCoach(String emailId) {
+		String sql = "SELECT code FROM Coaches WHERE email = ?";
+        String Code= jdbcTemplate.queryForObject(sql, String.class, emailId);
+	    return Code;
+	}
+
+	@Override
+	public int getIdCoach(String emailId) {
+		String sql = "SELECT id FROM Coaches WHERE email = ?";
+        int coach_db_id= jdbcTemplate.queryForObject(sql, int.class,emailId);
+	    return coach_db_id;
+	}
+	
+	@Override
+	public Coach getCoachByEmail(String email) {
+		 String sql="SELECT * FROM coaches WHERE email = ?";
+		 Coach coach=jdbcTemplate.queryForObject(sql, new Object[]{email}, new CoachRowMapper());
+		return coach;
 	}
 
 }

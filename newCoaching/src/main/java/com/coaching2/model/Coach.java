@@ -6,6 +6,15 @@ public class Coach {
 	private String email;
 	private String password;
 	private boolean verified;
+	private String code;
+
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
 
 	public int getId() {
 		return id;
