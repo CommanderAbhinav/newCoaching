@@ -34,6 +34,9 @@ public class UserController {
 	@Autowired
 	@Lazy
 	private HelperEmailService helperEmailService = new HelperEmailService();
+	
+	@Autowired
+	@Lazy
 	private HelperEmailServiceCoach helperEmailServiceCoach = new HelperEmailServiceCoach();
 
 	private static final ch.qos.logback.classic.Logger logger = (ch.qos.logback.classic.Logger) LoggerFactory
@@ -59,6 +62,7 @@ public class UserController {
 	public ResponseEntity<?> signUpInfocoach(@RequestBody Coach coachData) {
 
 		logger.info("Hello, logging!");
+		System.out.println(coachData.getName());
 
 		boolean UserPresent = coachManagementDAO.ifEmailIsPresent(coachData.getEmail());
 		if (UserPresent != false) {

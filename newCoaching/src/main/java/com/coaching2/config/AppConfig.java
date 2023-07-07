@@ -1,6 +1,6 @@
 package com.coaching2.config;
 
-import javax.servlet.Filter;
+
 import javax.sql.DataSource;
 
 import ch.qos.logback.classic.Level;
@@ -24,6 +24,8 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
+
+import com.coaching2.filter.JwtAuthenticationFilter;
 
 @Configuration
 @EnableWebMvc
@@ -69,6 +71,8 @@ public class AppConfig implements WebMvcConfigurer {
 
 	}
 
-	
-
+	@Bean(name = "jwtAuthenticationFilter")
+	public JwtAuthenticationFilter jwtAuthenticationFilter() {
+		return new JwtAuthenticationFilter();
+	}
 }

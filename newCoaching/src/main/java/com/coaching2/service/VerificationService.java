@@ -16,14 +16,14 @@ import com.coaching2.util.JwtTokenUtil;
 public class VerificationService {
 
 	@Autowired
-	private static CoachManagementDAO coachManagementDAO;
+	private CoachManagementDAO coachManagementDAO;
 
 	@Autowired
-	private static CoacheeManagementDAO coacheeManagementDAO;
+	private CoacheeManagementDAO coacheeManagementDAO;
 
-	public static ResponseEntity<?> matchCodeCoach(String emailId, String code) {
+	public  ResponseEntity<?> matchCodeCoach(String emailId, String code) {
 		String ActualCode = coachManagementDAO.getCodeCoach(emailId);
-		if (ActualCode == code) {
+		if (ActualCode.equals(code)) {
 
 			String token = JwtTokenUtil.generateToken(emailId, "coach");
 			return ResponseEntity.ok(token);
@@ -32,7 +32,7 @@ public class VerificationService {
 
 	}
 
-	public static ResponseEntity<?> matchCodeCoachee(String emailId, String code) {
+	public  ResponseEntity<?> matchCodeCoachee(String emailId, String code) {
 		String ActualCode = coacheeManagementDAO.getCodeCoachee(emailId);
 		if (ActualCode == code) {
 			String token = JwtTokenUtil.generateToken(emailId, "coachee");

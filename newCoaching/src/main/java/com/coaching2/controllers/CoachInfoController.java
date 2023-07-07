@@ -38,7 +38,7 @@ public class CoachInfoController {
 		return coachSignUpService.saveStep1(userId, coachAboutMe);
 	}
 
-	@PostMapping("/coachStep2")
+	@PostMapping("/user/coachStep2")
 	public ResponseEntity<?> saveCoachesDetails(HttpServletRequest request,
 			@RequestBody CoachesSocial[] coachesSocialArray,
 			@RequestBody CoachesEdu[] coachesEduArray, @RequestBody String EmployeeTitle,

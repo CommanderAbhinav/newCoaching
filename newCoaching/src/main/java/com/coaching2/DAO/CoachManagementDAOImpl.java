@@ -10,9 +10,18 @@ import com.coaching2.rowMapper.CoachRowMapper;
 
 @Repository
 public class CoachManagementDAOImpl implements CoachManagementDAO {
+	
+	
 
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
+	
+
+
+	public CoachManagementDAOImpl() {
+		super();
+		System.out.println("Request Came");
+	}
 
 	@Override
 	public void saveCoach(Coach coachData) {
@@ -43,7 +52,7 @@ public class CoachManagementDAOImpl implements CoachManagementDAO {
 
 	@Override
 	public void updateCoach(Coach coachData) {
-		String sql = "Update coachees SET code= ? WHERE email=?";
+		String sql = "Update coaches SET code= ? WHERE email=?";
 
 		jdbcTemplate.update(sql, coachData.getCode(), coachData.getEmail());
 		
